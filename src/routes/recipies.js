@@ -4,6 +4,7 @@ const {addrecepie,addimg,getRecepieById,getAllItems}=require('../controllers/rec
 const path=require('path');
 
 const router = express.Router();
+import uniqid from 'uniqid';
 
 
 // const middle=app.use(express.urlencoded({ extended: false }))
@@ -21,13 +22,24 @@ const router = express.Router();
 // })
 // const upload = multer({ storage: storage })
 
+// const upload = multer({
+//     storage: multer.diskStorage({
+//         destination: function (req, file, cb) {
+//             cb(null,'uploads');
+//         },
+//         filename : function(req,file,cb){
+//             cb(null, `${Date.now()}-${file.originalname}`)
+//         }
+//     }),
+// }).single("myImg");
+
 const upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null,'uploads');
         },
         filename : function(req,file,cb){
-            cb(null, `${Date.now()}-${file.originalname}`)
+            cb(null, `${uniqid()}-${file.originalname}`)
         }
     }),
 }).single("myImg");
